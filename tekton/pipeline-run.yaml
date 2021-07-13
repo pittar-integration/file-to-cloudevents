@@ -1,0 +1,22 @@
+kind: PipelineRun
+apiVersion: tekton.dev/v1beta1
+metadata:
+  generateName: quarkus-build-pipeline-
+spec:
+  pipelineRef:
+    name: quarkus-build-pipeline
+  params:
+    - name: "git-url"
+      value: "https://github.com/pittar/quarkus-camel-file-to-channel.git"
+    - name: "git-revision"
+      value: "main"
+    - name: "app-name"
+      value: "quarkus-camel-file-to-channel"
+    - name: "namespace"
+      value: "etest"
+  workspaces:
+    - name: build-workspace
+      persistentVolumeClaim:
+        claimName: build-workspace
+    - name: maven-settings
+      emptyDir: {}
